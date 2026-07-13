@@ -11,8 +11,8 @@
 class TmuxIde < Formula
   desc "Terminal-native IDE and agent cockpit built around tmux"
   homepage "https://github.com/wavyrai/tmux-ide"
-  url "https://registry.npmjs.org/tmux-ide/-/tmux-ide-2.7.0.tgz"
-  sha256 "fbef6a0040a90770e772e2c3c6144dce238dfb77300415126aaab6ad43110a02"
+  url "https://registry.npmjs.org/tmux-ide/-/tmux-ide-2.8.0.tgz"
+  sha256 "fab91dfc2c23f0ebd4444db3d78f7fac4a49c5b05bd96a29196e76fdad7d27c4"
   license "MIT"
 
   depends_on "node"
@@ -60,6 +60,9 @@ class TmuxIde < Formula
 
   test do
     assert_match "tmux-ide v#{version}", shell_output("#{bin}/tmux-ide --version")
+    assert_predicate \
+      libexec/"lib/node_modules/tmux-ide/packages/daemon/dist/native/TmuxIdeNotifier.app/Contents/MacOS/tmux-ide-notifier",
+      :executable?
     # doctor exits 1 in an empty dir (no ide.yml) — the checks still render.
     assert_match "tmux installed", shell_output("#{bin}/tmux-ide doctor 2>&1", 1)
   end
